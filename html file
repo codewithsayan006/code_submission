@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles1.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Unit Converter</h1>
+        
+        <form method="POST">
+            <input type="number" name="inputValue" placeholder="Enter value" required step="any" />
+            
+            <select name="fromUnit">
+                <option value="meter">Meter</option>
+                <option value="kilometer">Kilometer</option>
+                <option value="mile">Mile</option>
+                <option value="centimeter">Centimeter</option>
+            </select>
+            
+            <span>to</span>
+            
+            <select name="toUnit">
+                <option value="meter">Meter</option>
+                <option value="kilometer">Kilometer</option>
+                <option value="mile">Mile</option>
+                <option value="centimeter">Centimeter</option>
+            </select>
+            
+            <button type="submit">Convert</button>
+        </form>
+
+        {% if result is not none %}
+            <h2>Result: {{ result }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>
