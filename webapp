@@ -1,0 +1,35 @@
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+# Conversion logic for length units
+CONVERSION_RATES = {
+    'meter': 1,
+    'kilometer': 1000,
+    'mile': 1609.34,
+    'centimeter': 0.01
+}
+
+def convert_units(value, from_unit, to_unit):
+    # Convert the input value to meters
+    value_in_meters = value * CONVERSION_RATES[from_unit]
+    
+    # Convert the value from meters to the target unit
+    return value_in_meters / CONVERSION_RATES[to_unit]
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    result = None
+    if request.method == 'POST':
+        try:
+            input_value = float(request.form['inputValue'])
+            from_unit = request.form['fromUnit']
+            to_unit = request.form['toUnit']
+            result = convert_units(input_value, from_unit, to_unit)
+        except ValueError:
+            result = "Invalid input. Please enter a valid number."
+    
+    return render_template('indext.html', result=result)
+
+if __name__ == '__main__':
+    app.run(debug=True)
